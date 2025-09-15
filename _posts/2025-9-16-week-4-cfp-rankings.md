@@ -1,6 +1,6 @@
 ---
 layout: post
-title: My Week 3 College Football Rankings
+title: My 2025 Week 4 College Football Rankings
 categories: [Sports, College, Football, Rankings]
 ---
 

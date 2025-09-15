@@ -1,6 +1,6 @@
 ---
 layout: post
-title: My Week 3 College Football Rankings
+title: My 2024 Week 3 College Football Rankings
 categories: [Sports, College, Football, Rankings]
 ---
 
