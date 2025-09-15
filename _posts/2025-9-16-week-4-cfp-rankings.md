@@ -4,7 +4,7 @@ title: My Week 3 College Football Rankings
 categories: [Sports, College, Football, Rankings]
 ---
 
-#### September 9, 2025
+#### Kallen Media
 
 With the conclusion of Week 2, a lot of schools face drastic change.  Schools like Clemson, Notre Dame, and USF drop after losses.  Vandy and Georgia Tech also spring up the rankings after valueable wins and resumes.
 

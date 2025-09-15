@@ -4,7 +4,7 @@ title: My Week 3 College Football Rankings
 categories: [Sports, College, Football, Rankings]
 ---
 
-#### September 9, 2025
+#### Kallen Media
 
 With the conclusion of Week 2, not much changes in my rankings.  Schools like SMU and Florida drop after losses, but are not far off the list, as I see do not think either had a bad loss.  Arizona State also almost falls out of my top 25 after a loss to Mississippi State, who is rising on the radar of many.  Missouri also narrowly misses out after an impressive win against Kansas.  USF also boosts its way up the rankings after their back to back ranked wins to start the season.
 
