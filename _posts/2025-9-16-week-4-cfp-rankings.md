@@ -6,7 +6,7 @@ categories: [Sports, College, Football, Rankings]
 
 #### Kallen Media
 
-With the conclusion of Week 2, a lot of schools face drastic change.  Schools like Clemson, Notre Dame, and USF drop after losses.  Vandy and Georgia Tech also spring up the rankings after valueable wins and resumes.
+With the conclusion of Week 3, a lot of schools face drastic change.  Schools like Clemson, Notre Dame, and USF drop after losses.  Vandy and Georgia Tech also spring up the rankings after valueable wins and resumes.
 
 Plenty of ranked matchups to look forward to in Week 5.
 
