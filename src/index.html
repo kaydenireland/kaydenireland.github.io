@@ -11,36 +11,13 @@
 <body>
     <canvas id="bg"></canvas>
     <script type="module" src="js/background.js"></script>
+    <script type="module" src="js/components.js"></script>
 
     <div id="page-content">
 
-        <header id="header">
-            <a href="index.html" class="title-link">Kayden Ireland</a>
-            <nav id="top-nav" >
-                <ul>
-                    <li>
-                        <a class="header-link" href="index.html">Articles</a>
-                    </li>
-                    <li>
-                        <a class="header-link" href="index.html">Projects</a>
-                    </li>
-                    <li>
-                        <a class="header-link" href="index.html">Photos</a>
-                    </li>
-                    <li>
-                        <a class="header-link" href="index.html">Contacts</a>
-                    </li>
-                    <li>
-                        <a class="header-link" href="index.html">About</a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="header-description">
-                /* [ Software, Programming Languages, API, Game Development ] */
-            </div>
-        </header>
+        <div id="header-container"></div>
 
-        <div id="main">
+        <main id="main">
 
             <br>
 
@@ -60,23 +37,9 @@
                 I have also enjoyed the process on working on my own programming language using Rust, which can be seen along with some of my other projects <a href="/projects">here</a>.
             </p>
 
-        </div>
+        </main>
 
-        <div id="footer">
-            <ul id="footer-nav">
-                <li>
-                    <a href="mailto:kaydenireland@aol.com" class="footer-link">
-                        <img class="footer-image" src="media/email.svg" alt="email">
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.github.com/kaydenireland" class="footer-link">
-                        <img class="footer-image" src="media/github.svg" alt="svg">
-                    </a>
-                </li>
-            </ul>
-        </div>
-
+        <div id="footer-container"></div>
 
     </div>
 </body>
