@@ -1,3 +1,32 @@
+:root {
+    --accent-color: #1d4a13;
+}
+
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: #444;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a86;
+}
+
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -133,5 +162,142 @@ body {
 
 a {
     text-decoration: none;
-    color: #1d4a13;
+    color: var(--accent-color);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+table {
+    color: inherit;
+    text-align: inherit;
+    line-height: inherit;
+}
+
+.table-of-contents {
+    margin: 0;
+    border: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-of-contents td {
+    vertical-align: text-top;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+
+.table-of-contents tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.post-date {
+    font-size: 20px;
+    font-family: monospace;
+    margin-right: 40px;
+    color: #888;
+    white-space: pre;
+}
+
+.post-link {
+    font-size: 20px;
+    font-family: monospace;
+    color: var(--accent-color);
+}
+
+h1 {
+    font-size: 24px;
+    font-family: monospace;
+    text-align: center;
+    margin-top: 48px;
+}
+
+code {
+    font-family: monospace;
+    color: #cc5e91;
+}
+
+/* Inline code */
+.article-content p code,
+.article-content li code {
+    padding: 2px 5px;
+    border-radius: 4px;
+    background-color: #ddd;
+}
+
+a code {
+    color: var(--accent-color);
+}
+
+/* Code blocks */
+.code-block {
+    margin: 20px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px 0 #0007;
+    width: 75%;
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 6px 12px;
+
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.code-language {
+    font-weight: bold;
+}
+
+.copy-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px;
+    border: none;
+    background: none;
+
+    cursor: pointer;
+}
+
+.copy-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+.check-icon {
+    display: none;
+}
+
+.copy-button.copied .copy-icon {
+    display: none;
+}
+
+.copy-button.copied .check-icon {
+    display: block;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+}
+
+.code-block pre code {
+    display: block;
+
+    padding: 15px;
+
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 16px;
+
+    overflow-x: auto;
 }

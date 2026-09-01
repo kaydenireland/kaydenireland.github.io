@@ -1,0 +1,212 @@
+:root {
+    /* ─────────────────────────────────────────
+       Code Theme Colors
+       ───────────────────────────────────────── */
+
+    --code-background: #2a2c2d;
+    --code-foreground: #e6e6e6;
+
+    --code-muted: #888;
+    --code-comment: #bbbbbb;
+
+    --code-pink: #ff4b82;
+    --code-pink-light: #ff75b5;
+    --code-pink-soft: #ff9ac1;
+
+    --code-purple: #b084eb;
+
+    --code-blue: #45a9f9;
+
+    --code-cyan: #19f9d8;
+
+    --code-orange: #ffb86c;
+}
+
+
+/* ═══════════════════════════════════════════
+   Code Blocks
+   ═══════════════════════════════════════════ */
+
+.code-block {
+    background: var(--code-background);
+}
+
+.code-header {
+    color: var(--code-muted);
+    background: var(--code-background);
+
+    border-bottom: 1px solid var(--code-muted);
+}
+
+.copy-button {
+    color: var(--code-muted);
+}
+
+.copy-button:hover {
+    color: var(--code-foreground);
+}
+
+.copy-button.copied {
+    color: var(--code-muted);
+}
+
+.copy-button.copied:hover {
+    color: var(--code-foreground);
+}
+
+
+/* ═══════════════════════════════════════════
+   Highlight.js Base
+   ═══════════════════════════════════════════ */
+
+pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+}
+
+code.hljs {
+    padding: 3px 5px;
+}
+
+.hljs {
+    color: var(--code-foreground);
+    background: var(--code-background);
+}
+
+
+/* ═══════════════════════════════════════════
+   Text Formatting
+   ═══════════════════════════════════════════ */
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+.hljs-link {
+    text-decoration: underline;
+}
+
+
+/* ═══════════════════════════════════════════
+   Comments & Parameters
+   ═══════════════════════════════════════════ */
+
+.hljs-comment,
+.hljs-quote {
+    color: var(--code-comment);
+    font-style: italic;
+}
+
+.hljs-params {
+    color: var(--code-comment);
+}
+
+
+/* ═══════════════════════════════════════════
+   Punctuation & Attributes
+   ═══════════════════════════════════════════ */
+
+.hljs-punctuation,
+.hljs-attr {
+    color: var(--code-foreground);
+}
+
+
+/* ═══════════════════════════════════════════
+   Pink — Tags, Names & Metadata
+   ═══════════════════════════════════════════ */
+
+.hljs-selector-tag,
+.hljs-name,
+.hljs-meta {
+    color: var(--code-pink);
+}
+
+
+/* ═══════════════════════════════════════════
+   Purple — Operators & Escapes
+   ═══════════════════════════════════════════ */
+
+.hljs-operator,
+.hljs-char.escape_ {
+    color: var(--code-purple);
+}
+
+
+/* ═══════════════════════════════════════════
+   Light Pink — Keywords & Deletions
+   ═══════════════════════════════════════════ */
+
+.hljs-keyword,
+.hljs-deletion {
+    color: var(--code-pink-light);
+}
+
+
+/* ═══════════════════════════════════════════
+   Soft Pink — Regex & Variables
+   ═══════════════════════════════════════════ */
+
+.hljs-regexp,
+.hljs-selector-pseudo,
+.hljs-selector-attr,
+.hljs-variable.language_ {
+    color: var(--code-pink-soft);
+}
+
+
+/* ═══════════════════════════════════════════
+   Blue — Functions, Properties & Sections
+   ═══════════════════════════════════════════ */
+
+.hljs-subst,
+.hljs-property,
+.hljs-code,
+.hljs-formula,
+.hljs-section,
+.hljs-title.function_ {
+    color: var(--code-blue);
+}
+
+
+/* ═══════════════════════════════════════════
+   Cyan — Strings, Classes & Additions
+   ═══════════════════════════════════════════ */
+
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-selector-class,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-meta .hljs-string {
+    color: var(--code-cyan);
+}
+
+
+/* ═══════════════════════════════════════════
+   Orange — Values, Types, Titles & Literals
+   ═══════════════════════════════════════════ */
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-number,
+.hljs-literal,
+.hljs-type,
+.hljs-link,
+.hljs-built_in,
+.hljs-title,
+.hljs-selector-id,
+.hljs-tag,
+.hljs-doctag,
+.hljs-attribute,
+.hljs-template-tag,
+.hljs-meta .hljs-keyword {
+    color: var(--code-orange);
+}

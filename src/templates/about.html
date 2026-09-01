@@ -6,16 +6,16 @@
     <meta name="author" content="Kayden Ireland">
 
     <title>Kayden Ireland</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="{{root}}styles/style.css">
 </head>
 <body>
     <canvas id="bg"></canvas>
-    <script type="module" src="js/background.js"></script>
-    <script type="module" src="js/components.js"></script>
+    <script type="module" src="{{root}}js/background.js"></script>
+    <script type="module" src="{{root}}js/components.js"></script>
 
     <div id="page-content">
 
-        <div id="header-container"></div>
+        {{header}}
 
         <main id="main">
 
@@ -36,10 +36,13 @@
             <p>
                 I have also enjoyed the process on working on my own programming language using Rust, which can be seen along with some of my other projects <a href="/projects">here</a>.
             </p>
+            <p>
+                Some of my hobbies involve sports, astronomy, geography, geo sciences, video games, and more.  I love trying to incorporate these into projects when possible.
+            </p>
 
         </main>
 
-        <div id="footer-container"></div>
+        {{footer}}
 
     </div>
 </body>

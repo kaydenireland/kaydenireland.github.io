@@ -1,0 +1,335 @@
+:root {
+    /* --------------------------------------------------------
+       Base
+       -------------------------------------------------------- */
+
+    --code-background: #1e272e;
+    --code-foreground: #e8f5f7;
+
+    --code-header-background: #181f24;
+    --code-header-foreground: #a4b0be;
+    --code-border: #3e4c59;
+
+    /* --------------------------------------------------------
+       Syntax Colors
+       -------------------------------------------------------- */
+
+    --code-comment: #546e7a;
+
+    --code-keyword: #a29bfe;
+    --code-operator: #4ecdc4;
+
+    --code-function: #5ab0ef;
+    --code-method: #5ab0ef;
+
+    --code-variable: #e8f5f7;
+    --code-parameter: #ffb86c;
+
+    --code-string: #7bed9f;
+    --code-number: #ffb86c;
+    --code-constant: #ffb86c;
+    --code-literal: #ffb86c;
+
+    --code-class: #ffd32a;
+    --code-type: #78d9ff;
+
+    --code-property: #78d9ff;
+    --code-attribute: #a29bfe;
+
+    --code-tag: #ff6b9d;
+
+    --code-regexp: #4ecdc4;
+    --code-escape: #4ecdc4;
+
+    --code-error: #ff5252;
+
+    /* --------------------------------------------------------
+       Markup
+       -------------------------------------------------------- */
+
+    --code-heading: #7bed9f;
+    --code-link: #5ab0ef;
+
+    /* --------------------------------------------------------
+       Selection / UI
+       -------------------------------------------------------- */
+
+    --code-selection: #3e4c59;
+    --code-selection-highlight: #2c3843;
+    --code-line-highlight: #252d35;
+}
+
+
+/* ============================================================
+   Code Blocks
+   ============================================================ */
+
+.code-block {
+    background: var(--code-background);
+}
+
+.code-header {
+    color: var(--code-header-foreground);
+    background: var(--code-header-background);
+
+    border-bottom: 1px solid var(--code-border);
+}
+
+.copy-button {
+    color: var(--code-header-foreground);
+}
+
+.copy-button:hover {
+    color: var(--code-foreground);
+}
+
+.copy-button.copied {
+    color: var(--code-muted);
+}
+
+.copy-button.copied:hover {
+    color: var(--code-foreground);
+}
+
+
+/* ============================================================
+   Highlight.js Base
+   ============================================================ */
+
+pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+}
+
+code.hljs {
+    padding: 3px 5px;
+}
+
+.hljs {
+    color: var(--code-foreground);
+    background: var(--code-background);
+}
+
+
+/* ============================================================
+   Text Formatting
+   ============================================================ */
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+.hljs-link {
+    text-decoration: underline;
+}
+
+
+/* ============================================================
+   Comments
+   ============================================================ */
+
+.hljs-comment,
+.hljs-quote {
+    color: var(--code-comment);
+    font-style: italic;
+}
+
+.hljs-params {
+    color: var(--code-parameter);
+}
+
+
+/* ============================================================
+   Punctuation
+   ============================================================ */
+
+.hljs-punctuation {
+    color: var(--code-operator);
+}
+
+.hljs-attr {
+    color: var(--code-attribute);
+}
+
+
+/* ============================================================
+   Tags / HTML / XML
+   ============================================================ */
+
+.hljs-selector-tag,
+.hljs-name,
+.hljs-meta {
+    color: var(--code-tag);
+}
+
+.hljs-tag {
+    color: var(--code-tag);
+}
+
+.hljs-attribute {
+    color: var(--code-attribute);
+}
+
+
+/* ============================================================
+   Keywords / Operators
+   ============================================================ */
+
+.hljs-keyword,
+.hljs-literal {
+    color: var(--code-keyword);
+}
+
+.hljs-operator {
+    color: var(--code-operator);
+}
+
+
+/* ============================================================
+   Functions / Methods
+   ============================================================ */
+
+.hljs-title.function_,
+.hljs-title.function,
+.hljs-built_in {
+    color: var(--code-function);
+}
+
+
+/* ============================================================
+   Classes / Types
+   ============================================================ */
+
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-type {
+    color: var(--code-class);
+}
+
+.hljs-selector-class {
+    color: var(--code-class);
+}
+
+
+/* ============================================================
+   Variables
+   ============================================================ */
+
+.hljs-variable,
+.hljs-template-variable {
+    color: var(--code-variable);
+}
+
+.hljs-variable.language_ {
+    color: var(--code-error);
+}
+
+
+/* ============================================================
+   Properties
+   ============================================================ */
+
+.hljs-property {
+    color: var(--code-property);
+}
+
+
+/* ============================================================
+   Strings
+   ============================================================ */
+
+.hljs-string,
+.hljs-symbol {
+    color: var(--code-string);
+}
+
+
+/* ============================================================
+   Numbers / Constants
+   ============================================================ */
+
+.hljs-number,
+.hljs-constant,
+.hljs-literal {
+    color: var(--code-number);
+}
+
+
+/* ============================================================
+   Regular Expressions / Escapes
+   ============================================================ */
+
+.hljs-regexp {
+    color: var(--code-regexp);
+}
+
+.hljs-char.escape_ {
+    color: var(--code-escape);
+}
+
+
+/* ============================================================
+   Functions / Sections / Formulas
+   ============================================================ */
+
+.hljs-subst,
+.hljs-code,
+.hljs-formula,
+.hljs-section {
+    color: var(--code-function);
+}
+
+
+/* ============================================================
+   Markdown
+   ============================================================ */
+
+.hljs-section {
+    color: var(--code-heading);
+}
+
+.hljs-bullet {
+    color: var(--code-string);
+}
+
+
+/* ============================================================
+   Additions / Deletions
+   ============================================================ */
+
+.hljs-addition {
+    color: var(--code-string);
+}
+
+.hljs-deletion {
+    color: var(--code-error);
+}
+
+
+/* ============================================================
+   Selectors
+   ============================================================ */
+
+.hljs-selector-id {
+    color: var(--code-function);
+}
+
+.hljs-selector-pseudo,
+.hljs-selector-attr {
+    color: var(--code-operator);
+}
+
+
+/* ============================================================
+   Errors
+   ============================================================ */
+
+.hljs-invalid {
+    color: var(--code-error);
+}
+
