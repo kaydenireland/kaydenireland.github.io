@@ -137,6 +137,11 @@ function buildArticle(fileName, components) {
     );
 
     template = template.replaceAll(
+        "{{tags}}",
+        article.metadata.tags
+    );
+
+    template = template.replaceAll(
         "{{content}}",
         htmlContent
     );

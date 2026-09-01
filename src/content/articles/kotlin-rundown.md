@@ -2,8 +2,7 @@
 title: A Kotlin Rundown
 date: 2026-08-27
 description: A short overview of the Kotlin syntax.
-tags:
-  - Kotlin
+tags: Kotlin
 ---
 
 ## Overview

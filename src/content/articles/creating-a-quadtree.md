@@ -2,10 +2,7 @@
 title: Creating a Simple but Effective QuadTree
 date: 2026-08-24
 description: How I implemented a QuadTree from scratch in Java.
-tags:
-  - Java
-  - Data Structures
-  - Algorithms
+tags: Java, Data Structures, Algorithms
 ---
 
 A QuadTree is a spatial data structure that recursively divides
