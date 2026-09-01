@@ -2,10 +2,13 @@ import fs from "fs";
 import path from "path";
 import { marked } from "marked";
 import hljs from "highlight.js";
+import YAML from "yaml";
 
-const contentDirectory = "./content/articles";
-const outputDirectory = "./articles";
-const templatePath = "./templates/article.html";
+const articleContentDirectory = "./content/articles";
+const articleOutputDirectory = "./articles";
+const projectContentDirectory = "./content/projects";
+
+const articleTemplatePath = "./templates/article.html";
 const articlesTemplatePath = "./templates/articles.html";
 const aboutTemplatePath = "./templates/about.html";
 const photosTemplatePath = "./templates/photos.html";
@@ -90,22 +93,18 @@ renderer.code = function ({ text, lang }) {
 };
 
 function parseFrontMatter(markdown) {
-    const match = markdown.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+    const match = markdown.match(
+        /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/
+    );
 
     if (!match) {
-        throw new Error("Article is missing front matter");
+        throw new Error("Markdown file is missing front matter");
     }
 
     const frontMatter = match[1];
     const content = match[2];
 
-    const metadata = {};
-
-    for (const line of frontMatter.split("\n")) {
-        const [key, ...value] = line.split(":");
-
-        metadata[key.trim()] = value.join(":").trim();
-    }
+    const metadata = YAML.parse(frontMatter);
 
     return {
         metadata,
@@ -114,7 +113,7 @@ function parseFrontMatter(markdown) {
 }
 
 function buildArticle(fileName, components) {
-    const sourcePath = path.join(contentDirectory, fileName);
+    const sourcePath = path.join(articleContentDirectory, fileName);
 
     const markdown = fs.readFileSync(sourcePath, "utf8");
 
@@ -124,7 +123,7 @@ function buildArticle(fileName, components) {
         renderer
     });
 
-    let template = fs.readFileSync(templatePath, "utf8");
+    let template = fs.readFileSync(articleTemplatePath, "utf8");
 
     template = template.replaceAll(
         "{{title}}",
@@ -162,7 +161,7 @@ function buildArticle(fileName, components) {
     );
 
     const outputName = fileName.replace(/\.md$/, ".html");
-    const outputPath = path.join(outputDirectory, outputName);
+    const outputPath = path.join(articleOutputDirectory, outputName);
 
     fs.writeFileSync(outputPath, template);
 
@@ -171,6 +170,26 @@ function buildArticle(fileName, components) {
     return {
         fileName,
         metadata: article.metadata
+    };
+}
+
+function buildProject(fileName) {
+    const sourcePath = path.join(projectContentDirectory, fileName);
+
+    const markdown = fs.readFileSync(sourcePath, "utf8");
+
+    const project = parseFrontMatter(markdown);
+
+    const htmlContent = marked(project.content, {
+        renderer
+    });
+
+    console.log(`Loaded project ${fileName}`);
+
+    return {
+        fileName,
+        metadata: project.metadata,
+        content: htmlContent
     };
 }
 
@@ -195,6 +214,54 @@ function generateArticleRows(articles) {
     }).join("\n");
 }
 
+function generateProjectTables(projects) {
+    return projects.map((project, index) => {
+        const title = project.metadata.title;
+        const link = project.metadata.link;
+        const description = project.metadata.description;
+        const thumbnail = project.metadata.thumbnail;
+        const content = project.content;
+
+        const separator = index < projects.length - 1 ? ` <hr><br> ` : "";
+
+        const descriptionCell = `
+            <td>
+                <p>${description}</p>
+                <p>${content}</p>
+            </td>
+        `;
+
+        const imageCell = `
+            <td>
+                <a href="${link}">
+                    <img class="project-thumbnail" src="${thumbnail}">
+                </a>
+            </td>
+        `;
+
+        return `
+            <center>
+                <a class="project-title" href="${link}">
+                    ${title}
+                </a>
+            </center>
+
+            <table class="project-table">
+                <tbody>
+                    <tr>
+                        ${index % 2 === 0
+            ? descriptionCell + '<td class="separator"></td>' + imageCell
+            : imageCell + '<td class="separator"></td>' + descriptionCell
+        }
+                    </tr>
+                </tbody>
+            </table>
+
+            ${separator}
+        `;
+    }).join("\n");
+}
+
 function formatDate(dateString) {
     const date = new Date(dateString + "T00:00:00");
 
@@ -207,7 +274,7 @@ function formatDate(dateString) {
     return `${year} ${month} ${day}`;
 }
 
-function buildAboutPage(articles, components) {
+function buildAboutPage(components) {
     let template = fs.readFileSync(aboutTemplatePath, "utf8");
 
 
@@ -259,7 +326,7 @@ function buildArticlesPage(articles, components) {
     console.log("Built articles.html");
 }
 
-function buildPhotosPage(articles, components) {
+function buildPhotosPage(components) {
     let template = fs.readFileSync(photosTemplatePath, "utf8");
 
 
@@ -283,9 +350,14 @@ function buildPhotosPage(articles, components) {
     console.log("Built photos.html");
 }
 
-function buildProjectsPage(articles, components) {
+function buildProjectsPage(projects, components) {
     let template = fs.readFileSync(projectsTemplatePath, "utf8");
 
+
+    template = template.replaceAll(
+        "{{projects}}",
+        generateProjectTables(projects)
+    );
 
     template = template.replaceAll(
         "{{header}}",
@@ -307,35 +379,6 @@ function buildProjectsPage(articles, components) {
     console.log("Built projects.html");
 }
 
-
-function build() {
-    fs.mkdirSync(outputDirectory, { recursive: true });
-
-    const components = loadComponents();
-
-    const files = fs.readdirSync(contentDirectory);
-
-    const articles = [];
-
-    for (const file of files) {
-        if (file.endsWith(".md")) {
-            articles.push(
-                buildArticle(file, components)
-            );
-        }
-    }
-
-    articles.sort((a, b) => {
-        return new Date(b.metadata.date) -
-            new Date(a.metadata.date);
-    });
-
-    buildAboutPage(articles, components);
-    buildArticlesPage(articles, components);
-    buildPhotosPage(articles, components);
-    buildProjectsPage(articles, components);
-}
-
 function loadComponents() {
     return {
         header: fs.readFileSync(headerPath, "utf8"),
@@ -354,6 +397,7 @@ function formatLanguageName(language) {
         csharp: "C#",
         cpp: "C++",
         c: "C",
+        haskell: "Haskell",
         html: "HTML",
         css: "CSS",
         json: "JSON",
@@ -364,6 +408,41 @@ function formatLanguageName(language) {
     };
 
     return names[language] ?? language;
+}
+
+function build() {
+    const components = loadComponents();
+
+    fs.mkdirSync(articleOutputDirectory, { recursive: true });
+    const articleFiles = fs.readdirSync(articleContentDirectory);
+    const articles = [];
+    for (const file of articleFiles) {
+        if (file.endsWith(".md")) {
+            articles.push(
+                buildArticle(file, components)
+            );
+        }
+    }
+    articles.sort((a, b) => {
+        return new Date(b.metadata.date) -
+            new Date(a.metadata.date);
+    });
+
+    const projectFiles = fs.readdirSync(projectContentDirectory);
+    const projects = [];
+
+    for (const file of projectFiles) {
+        if (file.endsWith(".md")) {
+            projects.push(
+                buildProject(file)
+            );
+        }
+    }
+
+    buildAboutPage(components);
+    buildArticlesPage(articles, components);
+    buildPhotosPage(components);
+    buildProjectsPage(projects, components);
 }
 
 build();

@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Kayden Ireland">
 
-    <title>Articles | Kayden Ireland</title>
+    <title>{{title}} | Kayden Ireland</title>
     <link rel="stylesheet" href="{{root}}styles/style.css">
+    <link rel="stylesheet" href="{{root}}styles/angler-syntax-dark.css">
 </head>
 <body>
     <canvas id="bg"></canvas>
     <script type="module" src="{{root}}js/background.js"></script>
+    <script type="module" src="{{root}}js/code.js"></script>
 
     <div id="page-content">
 
@@ -18,11 +20,14 @@
 
         <main id="main">
 
-            <table class="table-of-contents">
-                <tbody>
-                    {{articles}}
-                </tbody>
-            </table>
+            <div id="article-header">
+                <br>
+                <div id="page-title">{{title}}</div>
+                <br>
+                <center><span class="post-tags"># {{tags}}</span></center>
+                <br>
+            </div>
+            <article class="article-content">{{content}}</article>
 
 
         </main>

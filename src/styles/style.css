@@ -42,7 +42,7 @@ body {
     padding: 20px;
     background-color: #eee;
     border-radius: 20px;
-    box-shadow: 0px 0px 40px 20px #0007;
+    box-shadow: 0 0 40px 20px #0007;
     font-family: sans-serif;
     color: #444;
     text-align: justify;
@@ -153,7 +153,7 @@ body {
     width: 16px;
     height: 16px;
     opacity: 50%;
-    transform: translate(0px, 4px) scale(1.5);
+    transform: translate(0, 4px) scale(1.5);
 }
 
 .footer-image:hover {
@@ -308,3 +308,46 @@ a code {
 
     overflow-x: auto;
 }
+
+.project-title {
+    font-size: 24px;
+    font-family: monospace;
+}
+
+.project-table {
+    border: 0;
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+}
+
+.project-table td {
+    padding: 0;
+}
+
+.project-table td:first-child {
+    width: calc(50% - 10px);
+}
+
+.project-table .separator {
+    width: 20px;
+}
+
+.project-table td:last-child {
+    width: calc(50% - 10px);
+}
+
+.project-thumbnail {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #0007;
+    transition: 0.25s;
+}
+
+.project-thumbnail:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 5px 5px 10px 0 #0007;
+}
+

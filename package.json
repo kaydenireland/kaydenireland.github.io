@@ -20,6 +20,7 @@
   "homepage": "https://github.com/kaydenireland/kaydenireland.github.io#readme",
   "dependencies": {
     "highlight.js": "^11.12.0",
-    "marked": "^18.0.11"
+    "marked": "^18.0.11",
+    "yaml": "^2.9.0"
   }
 }
