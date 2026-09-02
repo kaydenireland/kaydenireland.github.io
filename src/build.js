@@ -7,12 +7,15 @@ import YAML from "yaml";
 const articleContentDirectory = "./content/articles";
 const articleOutputDirectory = "./articles";
 const projectContentDirectory = "./content/projects";
+const photoContentDirectory = "./content/photos";
+const photoOutputDirectory = "./photos";
 
 const articleTemplatePath = "./templates/article.html";
 const articlesTemplatePath = "./templates/articles.html";
 const aboutTemplatePath = "./templates/about.html";
 const photosTemplatePath = "./templates/photos.html";
 const projectsTemplatePath = "./templates/projects.html";
+const photoTemplatePath = "./templates/album.html";
 
 const headerPath = "./components/header.html";
 const footerPath = "./components/footer.html";
@@ -221,6 +224,7 @@ function generateProjectTables(projects) {
         const description = project.metadata.description;
         const thumbnail = project.metadata.thumbnail;
         const content = project.content;
+        const tags = project.metadata.tags;
 
         const separator = index < projects.length - 1 ? ` <hr><br> ` : "";
 
@@ -234,7 +238,7 @@ function generateProjectTables(projects) {
         const imageCell = `
             <td>
                 <a href="${link}">
-                    <img class="project-thumbnail" src="${thumbnail}">
+                    <img class="thumbnail" src="${thumbnail}">
                 </a>
             </td>
         `;
@@ -245,17 +249,106 @@ function generateProjectTables(projects) {
                     ${title}
                 </a>
             </center>
+            <center><span class="post-tags"># ${tags}</span></center>
 
             <table class="project-table">
                 <tbody>
                     <tr>
-                        ${index % 2 === 0
-            ? descriptionCell + '<td class="separator"></td>' + imageCell
-            : imageCell + '<td class="separator"></td>' + descriptionCell
-        }
+                        ${index % 2 === 0 ? descriptionCell + '<td class="separator"></td>' + imageCell : imageCell + '<td class="separator"></td>' + descriptionCell}
                     </tr>
                 </tbody>
             </table>
+
+            ${separator}
+        `;
+    }).join("\n");
+}
+
+function generatePhotoTable(photos, albumDirectory) {
+    photos.sort((a, b) => a.localeCompare(b));
+
+    let html = `
+        <table class="photos-table">
+            <tbody>
+    `;
+
+    for (let i = 0; i < photos.length; i += 2) {
+        html += `
+            <tr>
+        `;
+
+        for (let j = 0; j < 2; j++) {
+            const index = i + j;
+
+            if (index < photos.length) {
+                const photo = photos[index];
+
+                html += `
+                    <td>
+                        <a href="../media/photos/${albumDirectory}/${photo}">
+                            <img class="photo"
+                                 src="../media/photos/${albumDirectory}/${photo}"
+                                 alt="${photo}">
+                        </a>
+                    </td>
+                `;
+            } else {
+                html += `
+                    <td></td>
+                `;
+            }
+        }
+
+        html += `
+            </tr>
+        `;
+    }
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+    return html;
+}
+
+function generateAlbumRows(albums) {
+    return albums.map((album, index) => {
+        const title = album.metadata.title;
+        const thumbnail = album.metadata.thumbnail;
+        const directory = album.directory;
+
+        const image = `
+            <a href="photos/${directory}.html">
+                <img class="thumbnail" src="media/photos/${directory}/${thumbnail}">
+            </a>
+        `;
+
+        const titleCell = `
+            <td class="album-title">
+                <a class="post-link"
+                   href="photos/${directory}.html">
+                    ${title}
+                </a>
+            </td>
+        `;
+
+        const imageCell = `
+            <td class="album-image">
+                ${image}
+            </td>
+        `;
+
+        const emptyCell = `
+            <td class="album-empty"></td>
+        `;
+
+        const separator = index < albums.length - 1 ? `<tr><td colspan="3"><hr></td></tr>` : "";
+
+        return `
+            <tr>
+                ${index % 2 === 0 ? imageCell + titleCell + emptyCell : emptyCell + titleCell + imageCell}
+            </tr>
 
             ${separator}
         `;
@@ -326,30 +419,6 @@ function buildArticlesPage(articles, components) {
     console.log("Built articles.html");
 }
 
-function buildPhotosPage(components) {
-    let template = fs.readFileSync(photosTemplatePath, "utf8");
-
-
-    template = template.replaceAll(
-        "{{header}}",
-        components.header
-    );
-
-    template = template.replaceAll(
-        "{{footer}}",
-        components.footer
-    );
-
-    template = template.replaceAll(
-        "{{root}}",
-        ""
-    );
-
-    fs.writeFileSync("photos.html", template);
-
-    console.log("Built photos.html");
-}
-
 function buildProjectsPage(projects, components) {
     let template = fs.readFileSync(projectsTemplatePath, "utf8");
 
@@ -362,6 +431,11 @@ function buildProjectsPage(projects, components) {
     template = template.replaceAll(
         "{{header}}",
         components.header
+    );
+
+    template = template.replaceAll(
+        "{{tags}}",
+        components.tags
     );
 
     template = template.replaceAll(
@@ -410,9 +484,140 @@ function formatLanguageName(language) {
     return names[language] ?? language;
 }
 
+function buildPhotoAlbum(fileName, components) {
+    const sourcePath = path.join(
+        photoContentDirectory,
+        fileName
+    );
+
+    const markdown = fs.readFileSync(
+        sourcePath,
+        "utf8"
+    );
+
+    const album = parseFrontMatter(markdown);
+
+    const albumDirectory = fileName.replace(
+        /\.md$/,
+        ""
+    );
+
+    const imageDirectory = path.join(
+        "./media/photos",
+        albumDirectory
+    );
+
+    const photos = fs.readdirSync(imageDirectory)
+        .filter(file =>
+            /\.(jpg|jpeg|png|webp)$/i.test(file)
+        );
+
+    const htmlContent = marked(album.content, {
+        renderer
+    });
+
+    let template = fs.readFileSync(
+        photoTemplatePath,
+        "utf8"
+    );
+
+    template = template.replaceAll(
+        "{{title}}",
+        album.metadata.title
+    );
+
+    template = template.replaceAll(
+        "{{date}}",
+        formatDate(album.metadata.date)
+    );
+
+    template = template.replaceAll(
+        "{{location}}",
+        album.metadata.location
+    );
+
+    template = template.replaceAll(
+        "{{content}}",
+        htmlContent
+    );
+
+    template = template.replaceAll(
+        "{{photos}}",
+        generatePhotoTable(
+            photos,
+            albumDirectory
+        )
+    );
+
+    template = template.replaceAll(
+        "{{header}}",
+        components.header
+    );
+
+    template = template.replaceAll(
+        "{{footer}}",
+        components.footer
+    );
+
+    template = template.replaceAll(
+        "{{root}}",
+        "../"
+    );
+
+    const outputPath = path.join(
+        photoOutputDirectory,
+        `${albumDirectory}.html`
+    );
+
+    fs.writeFileSync(
+        outputPath,
+        template
+    );
+
+    console.log(`Built ${outputPath}`);
+
+    return {
+        fileName,
+        directory: albumDirectory,
+        metadata: album.metadata
+    };
+}
+
+function buildPhotosPage(albums, components) {
+    let template = fs.readFileSync(
+        photosTemplatePath,
+        "utf8"
+    );
+
+    template = template.replace(
+        "{{albums}}",
+        generateAlbumRows(albums)
+    );
+
+    template = template.replaceAll(
+        "{{header}}",
+        components.header
+    );
+
+    template = template.replaceAll(
+        "{{footer}}",
+        components.footer
+    );
+
+    template = template.replaceAll(
+        "{{root}}",
+        ""
+    );
+
+    fs.writeFileSync("photos.html", template);
+
+    console.log("Built photos.html");
+}
+
 function build() {
     const components = loadComponents();
 
+    // Articles
     fs.mkdirSync(articleOutputDirectory, { recursive: true });
     const articleFiles = fs.readdirSync(articleContentDirectory);
     const articles = [];
@@ -428,9 +633,9 @@ function build() {
             new Date(a.metadata.date);
     });
 
+    // Projects
     const projectFiles = fs.readdirSync(projectContentDirectory);
     const projects = [];
-
     for (const file of projectFiles) {
         if (file.endsWith(".md")) {
             projects.push(
@@ -439,9 +644,22 @@ function build() {
         }
     }
 
+    // Photos
+    fs.mkdirSync(photoOutputDirectory, { recursive: true });
+    const photoFiles = fs.readdirSync(photoContentDirectory);
+    const albums = [];
+    for (const file of photoFiles) {
+        if (file.endsWith(".md")) {
+            albums.push(
+                buildPhotoAlbum(file, components)
+            );
+        }
+    }
+
+    // Build
     buildAboutPage(components);
     buildArticlesPage(articles, components);
-    buildPhotosPage(components);
+    buildPhotosPage(albums, components);
     buildProjectsPage(projects, components);
 }
 

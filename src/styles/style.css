@@ -337,7 +337,7 @@ a code {
     width: calc(50% - 10px);
 }
 
-.project-thumbnail {
+.thumbnail {
     width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -346,8 +346,61 @@ a code {
     transition: 0.25s;
 }
 
-.project-thumbnail:hover {
+.thumbnail:hover {
     transform: translate(-5px, -5px);
     box-shadow: 5px 5px 10px 0 #0007;
 }
 
+.photos-table {
+    border-collapse: separate;
+    border-spacing: 15px;
+    margin: -15px;
+}
+
+.photo {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #0007;
+    transition: 0.25s;
+}
+
+.photo:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 5px 5px 10px 0 #0007;
+}
+
+.album-date {
+    font-size: 20px;
+    font-family: monospace;
+    color: #888;
+    text-align: center;
+}
+
+.album-table {
+    width: 100%;
+    border: 0;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.album-table td {
+    padding: 0;
+}
+
+.album-image {
+    width: 256px;
+}
+
+.album-image .thumbnail {
+    width: 256px;
+}
+
+.album-title {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 20px !important;
+}
+
+.album-empty {
+    width: 256px;
+}
